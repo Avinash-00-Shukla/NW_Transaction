@@ -8,6 +8,6 @@ public class TransactionControllerTest {
 	    private TransactionService service;  
 		@BeforeClass
         public void setUp() {
-            service = new TransactionService(new TransactionRepository());
+            service = new TransactionService();
         }
 }

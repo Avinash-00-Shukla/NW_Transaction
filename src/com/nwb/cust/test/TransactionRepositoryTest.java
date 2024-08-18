@@ -1,8 +1,5 @@
-package com.nwb.cust.test;
-
-import org.junit.BeforeClass;
-
-import com.nwb.cust.repo.TransactionRepository;
+package com.nwb.cust.test; 
+import org.junit.BeforeClass; 
 import com.nwb.cust.service.TransactionService;
 
 public class TransactionRepositoryTest {
@@ -10,6 +7,6 @@ public class TransactionRepositoryTest {
 
     @BeforeClass
     public void setUp() {
-        service = new TransactionService(new TransactionRepository());
+        service = new TransactionService();
     }
 }
