@@ -7,7 +7,7 @@ import com.nwb.cust.model.TransactionStatus;
 
 public class TransactionRepository {
 
-	private List<Transaction> transactions;
+	public List<Transaction> transactions;
 
 	public TransactionRepository() {
 		//here data base will be conected but currently using only dummy data
