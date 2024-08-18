@@ -1,35 +1,34 @@
-package com.nwb.cust.repo;
-
+package com.nwb.cust.repo; 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import java.util.List; 
 import com.nwb.cust.model.Transaction;
+import com.nwb.cust.model.TransactionStatus;
 
 public class TransactionRepository {
 
-		private List<Transaction> transactions;
-		
-		public TransactionRepository() {
-			transactions= new ArrayList<>();
-			
-			transactions.add(new Transaction(1L,"SUCCESS", 100.0));
-			transactions.add(new Transaction(2L, "PENDING", 200.0));
-	        transactions.add(new Transaction(3L, "FAILED", 300.0));
-	        transactions.add(new Transaction(4L, "SUCCESS", 400.0));
-	        
-	        
-		}
-		
-		public List<Transaction> findAll() {
-	        return transactions;
-	    }
+	private List<Transaction> transactions;
 
-	    public List<Transaction> findByStatus(String status) {
-	        return transactions.stream()
-	                .filter(transaction -> transaction.getStatus().equalsIgnoreCase(status))
-	                .collect(Collectors.toList());
-	    }
-		
-		
+	public TransactionRepository() {
+		//here data base will be conected but currently using only dummy data
+
+		transactions = new ArrayList<>();
+		transactions.add(new Transaction((long) (Math.random() * 1000000007), "UPI", (double) (Math.random() * 100000),
+				LocalDateTime.now(), "For CANCELLED Testing", TransactionStatus.CANCELLED));
+		transactions.add(new Transaction((long) (Math.random() * 1000000007), "NEFT", (double) (Math.random() * 100000),
+				LocalDateTime.now(), "For SUCCESS Testing", TransactionStatus.SUCCESS));
+		transactions.add(new Transaction((long) (Math.random() * 1000000007), "UPI", (double) (Math.random() * 100000),
+				LocalDateTime.now(), "For FAILED Testing", TransactionStatus.FAILED));
+		transactions.add(new Transaction((long) (Math.random() * 1000000007), "NEFT", (double) (Math.random() * 100000),
+				LocalDateTime.now(), "For PENDING Testing", TransactionStatus.PENDING));
+		transactions.add(new Transaction((long) (Math.random() * 1000000007), "UPI", (double) (Math.random() * 100000),
+				LocalDateTime.now(), "For CANCELLED Testing", TransactionStatus.CANCELLED));
+		transactions.add(new Transaction((long) (Math.random() * 1000000007), "CHEQUE", (double) (Math.random() * 100000),
+				LocalDateTime.now(), "For SUCCESS Testing", TransactionStatus.SUCCESS));
+		transactions.add(new Transaction((long) (Math.random() * 1000000007), "CHEQUE", (double) (Math.random() * 100000),
+				LocalDateTime.now(), "For FAILED Testing", TransactionStatus.FAILED));
+		transactions.add(new Transaction((long) (Math.random() * 1000000007), "CASH WITHDRAWN", (double) (Math.random() * 100000),
+				LocalDateTime.now(), "For PENDING Testing", TransactionStatus.FAILED));
+
+	} 
 }
