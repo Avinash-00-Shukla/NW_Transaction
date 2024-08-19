@@ -44,11 +44,11 @@ public class Transaction {
         
         if(this.type == TransactionType.CREDIT){
             this.sender = otherParty; 
-            this.reciever = "USER";
+            this.reciever = "USER"; // database se aayega
         }
         if(this.type == TransactionType.DEBIT){
             this.reciever = otherParty; 
-            this.sender = "USER";
+            this.sender = "USER"; // database se aayega
         }
 
         // Validation for transaction 
