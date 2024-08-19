@@ -18,9 +18,16 @@ public class TransactionService {
         repository = new TransactionRepository();
     }
     
-    public boolean addTransaction(Transaction t) {
+    public boolean addTransaction (Long id, String mode, String type, Double amount, LocalDateTime date,
+    String description, String status, String currency, String otherParty) {
         // Add transaction to the repository 
-        repository.transactions.add(t);
+        try{
+            Transaction t = new Transaction(id, mode, type, amount, date, description, status, currency, otherParty);
+            repository.transactions.add(t);
+        }
+        catch(IllegalArgumentException e){  
+            return false;
+        }
         return true;
     }
 
