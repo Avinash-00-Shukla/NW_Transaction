@@ -1,92 +1,90 @@
 package com.nwb.cust.service;
+
 import com.nwb.cust.model.Transaction;
+import com.nwb.cust.model.TransactionMode;
 import com.nwb.cust.model.TransactionStatus;
+import com.nwb.cust.model.TransactionType;
 import com.nwb.cust.repo.TransactionRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class TransactionService {
-    private TransactionHistory transactionHistory;
+
     private TransactionRepository repository;
+
     // Constructor
-    public TransactionService() {
-        transactionHistory = new TransactionHistory();
+    public TransactionService() { 
         repository = new TransactionRepository();
     }
 
-    // View transaction history with optional filters
-    public String viewTransactionHistory(LocalDateTime startDate, LocalDateTime endDate, TransactionStatus status) {
-        List<Transaction> filteredTransactions = transactionHistory.getTransactionsByDateRange(startDate, endDate);
-        
-        if (status != null) {
-            filteredTransactions = transactionHistory.getTransactionsByStatus(status);
-        }
-
-        if (filteredTransactions.isEmpty()) {
-            return "No transaction history available for the selected criteria.";
-        }
-
-        // Convert the list of transactions to a readable format
-        StringBuilder transactionHistoryString = new StringBuilder("Transaction History:\n");
-        for (Transaction transaction : filteredTransactions) {
-            transactionHistoryString.append(transaction.toString()).append("\n");
-        }
-
-        return transactionHistoryString.toString();
+    public boolean addTransaction(Transaction t) {
+        // Add transaction to the repository
+        repository.transactions.add(t);
+        return true;
     }
 
-    // Add a transaction
-    public void addTransaction(Transaction transaction) {
-        transactionHistory.addTransaction(transaction);
+    // Filter transactions by a specific date range
+    public List<Transaction> getTransactionsByDateRange(LocalDateTime startDate, LocalDateTime endDate) {
+        return TransactionFilters.getTransactionsByDateRange(repository.transactions, startDate, endDate);
     }
 
-    // Search transactions by amount
-    public String searchTransactionsByAmount(double amount) {
-        List<Transaction> transactions = transactionHistory.searchTransactionsByAmount(amount);
-
-        if (transactions.isEmpty()) {
-            return "No transactions found for the specified amount.";
-        }
-
-        // Convert the list of transactions to a readable format
-        StringBuilder result = new StringBuilder("Transactions matching the amount:\n");
-        for (Transaction transaction : transactions) {
-            result.append(transaction.toString()).append("\n");
-        }
-
-        return result.toString();
+    // Filter transactions by exact amount
+    public List<Transaction> getTransactionsByExactAmount(double amount) {
+        return TransactionFilters.searchTransactionsByAmount(repository.transactions, amount);
     }
 
-    // Search transactions by description (recipient/sender)
-    public String searchTransactionsByDescription(String description) {
-        List<Transaction> transactions = transactionHistory.searchTransactionsByDescription(description);
-
-        if (transactions.isEmpty()) {
-            return "No transactions found for the specified description.";
-        }
-
-        // Convert the list of transactions to a readable format
-        StringBuilder result = new StringBuilder("Transactions matching the description:\n");
-        for (Transaction transaction : transactions) {
-            result.append(transaction.toString()).append("\n");
-        }
-
-        return result.toString();
-    }
-    
-    // Get a specific transaction by ID
-    public String getTransactionDetails(Long transactionId) {
-        Transaction transaction = transactionHistory.getTransactionById(transactionId);
-        if (transaction != null) {
-            return "Transaction Details:\n" + transaction.toString();
-        } else {
-            return "Transaction not found.";
-        }
+    // Filter transactions by minimum amount
+    public List<Transaction> getTransactionsByMinAmount(double minAmount) {
+        return TransactionFilters.getTransactionsByMinAmount(repository.transactions, minAmount);
     }
 
-    // Get all transactions
+    // Filter transactions by maximum amount
+    public List<Transaction> getTransactionsByMaxAmount(double maxAmount) {
+        return TransactionFilters.getTransactionsByMaxAmount(repository.transactions, maxAmount);
+    }
+
+    // Filter transactions by transaction type
+    public List<Transaction> getTransactionsByType(TransactionType type) {
+        return TransactionFilters.getTransactionsByType(repository.transactions, type);
+    }
+
+    // Filter transactions by transaction status
+    public List<Transaction> getTransactionsByStatus(TransactionStatus status) {
+        return TransactionFilters.getTransactionsByStatus(repository.transactions, status);
+    }
+
+    // Filter transactions by transaction mode
+    public List<Transaction> getTransactionsByMode(TransactionMode mode) {
+        return TransactionFilters.getTransactionsByMode(repository.transactions, mode);
+    }
+
+    // Filter transactions by description (contains keywords)
+    public List<Transaction> getTransactionsByDescription(String descriptionKeyword) {
+        return TransactionFilters.searchTransactionsByDescription(repository.transactions, descriptionKeyword);
+    }
+
+    // Retrieve a specific transaction by its ID
+    public Transaction getTransactionById(Long transactionId) {
+        return TransactionFilters.getTransactionById(repository.transactions, transactionId);
+    }
+
+    // Filter transactions by sender account number
+    public List<Transaction> getTransactionsBySenderAccount(String senderAccount) {
+        return TransactionFilters.getTransactionsBySenderAccount(repository.transactions, senderAccount);
+    }
+
+    // Filter transactions by receiver account number
+    public List<Transaction> getTransactionsByReceiverAccount(String receiverAccount) {
+        return TransactionFilters.getTransactionsByReceiverAccount(repository.transactions, receiverAccount);
+    } 
+
+    // Filter transactions by currency type
+    public List<Transaction> getTransactionsByCurrency(String currency) {
+        return TransactionFilters.getTransactionsByCurrency(repository.transactions, currency);
+    }
+
     public List<Transaction> getAllTransactions() {
-        return transactionHistory.getAllTransactions();
+        return repository.transactions;
     }
 }

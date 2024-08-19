@@ -10,6 +10,9 @@ public class Transaction {
     private String description; 
     private TransactionStatus status;
     private String currency;
+    private String sender;
+    private String reciever;
+
 
     public Transaction() {
         // Default constructor
@@ -17,7 +20,7 @@ public class Transaction {
     
 
     public Transaction(Long id, String mode, String type, Double amount, LocalDateTime date,
-                       String description, String status, String currency) { 
+                       String description, String status, String currency, String otherParty) { 
         this.id = id;
         try {
             this.mode =  TransactionMode.valueOf(mode.toUpperCase());
@@ -38,10 +41,18 @@ public class Transaction {
             throw new IllegalArgumentException("Invalid TransactionStatus: " + status);
         }
         this.currency = currency; 
+        
+        if(this.type == TransactionType.CREDIT){
+            this.sender = otherParty; 
+            this.reciever = "USER";
+        }
+        if(this.type == TransactionType.DEBIT){
+            this.reciever = otherParty; 
+            this.sender = "USER";
+        }
 
-        // Validation for transaction
-        TransactionValidations validator = new TransactionValidations();
-        validator.validateTransaction(this);
+        // Validation for transaction 
+        TransactionValidations.validateTransaction(this);
     } 
 
     public String getCurrency() {
@@ -133,7 +144,27 @@ public class Transaction {
                 '}';
     }
 
-	public void completeTransaction() {
+	public String getSender() {
+        return sender;
+    }
+
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+
+    public String getReciever() {
+        return reciever;
+    }
+
+
+    public void setReciever(String reciever) {
+        this.reciever = reciever;
+    }
+
+
+    public void completeTransaction() {
         this.status = TransactionStatus.SUCCESS;
     }
 
