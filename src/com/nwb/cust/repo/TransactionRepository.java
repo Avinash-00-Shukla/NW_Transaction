@@ -10,7 +10,7 @@ import com.nwb.cust.model.TransactionValidations;
 public class TransactionRepository {
 
     public List<Transaction> transactions = new ArrayList<>();
-
+    Transaction transactionNEW = new Transaction(44L, "NEFT", "CREDIT", 5000.00, LocalDateTime.now(), "Test Transaction", "SUCCESS", "INR", "USER1");
     public TransactionRepository() { 
 
         // Fake transactions for testing
@@ -29,6 +29,7 @@ public class TransactionRepository {
             );
             transactions.add(transaction);
         }
+        transactions.add(transactionNEW);
     }
 
     // Helper methods to generate random enum values as strings
@@ -37,17 +38,17 @@ public class TransactionRepository {
     }
 
     private String getRandomTransactionModeString(Random random) {
-        String[] modes = {"CREDIT_CARD", "DEBIT_CARD", "NEFT", "CASH", "UPI", "CHEQUE","TEST"};
+        String[] modes = {"CREDIT_CARD", "DEBIT_CARD", "NEFT", "CASH", "UPI", "CHEQUE"};
         return modes[random.nextInt(modes.length)];
     }
 
     private String getRandomTransactionTypeString(Random random) {
-        String[] types = {"CREDIT", "DEBIT","TEST"};
+        String[] types = {"CREDIT", "DEBIT"};
         return types[random.nextInt(types.length)];
     }
 
     private String getRandomTransactionStatusString(Random random) {
-        String[] statuses = {"PENDING", "SUCCESS", "FAILED", "CANCELLED","TEST"};
+        String[] statuses = {"PENDING", "SUCCESS", "FAILED", "CANCELLED"};
         return statuses[random.nextInt(statuses.length)];
     }
 }

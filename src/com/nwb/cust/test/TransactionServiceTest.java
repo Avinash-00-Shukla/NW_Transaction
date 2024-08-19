@@ -138,7 +138,7 @@ public class TransactionServiceTest {
 
     @Test
     public void testGetTransactionById() {
-        Long transactionId = 21L;
+        Long transactionId = 44L;
         Transaction transaction = service.getTransactionById(transactionId);
         assertNotNull(transaction);
         assertEquals(transactionId, transaction.getId());
