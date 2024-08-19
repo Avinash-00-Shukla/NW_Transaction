@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class TransactionValidations {
 
-    public void validateTransaction(Transaction transaction) {
+    public static boolean validateTransaction(Transaction transaction) {
         if (transaction == null) {
             throw new IllegalArgumentException("Transaction cannot be null");
         }
@@ -17,39 +17,40 @@ public class TransactionValidations {
         validateDescription(transaction.getDescription());
         validateStatus(transaction.getStatus());
         validateCurrency(transaction.getCurrency());
+        return true;
     }
 
-    private void validateId(Long id) {
+    private static void validateId(Long id) {
         if (id == null || id <= 0) {
             throw new IllegalArgumentException("Transaction ID must be a positive number");
         }
     }
 
-    private void validateMode(TransactionMode mode) {
+    private static void validateMode(TransactionMode mode) {
         if (mode == null) {
             throw new IllegalArgumentException("Transaction mode must be specified");
         } 
     }
 
-    private void validateType(TransactionType type) {
+    private static void validateType(TransactionType type) {
         if (type == null) {
             throw new IllegalArgumentException("Transaction type must be specified");
         }
     }
 
-    private void validateAmount(Double amount) {
+    private static void validateAmount(Double amount) {
         if (amount == null || amount < 0) {
             throw new IllegalArgumentException("Amount must be a non-negative value");
         }
     }
 
-    private void validateDate(LocalDateTime date) {
+    private static void validateDate(LocalDateTime date) {
         if (date == null) {
             throw new IllegalArgumentException("Transaction date must be specified");
         }
     }
 
-    private void validateDescription(String description) {
+    private static void validateDescription(String description) {
         if (description == null || description.trim().isEmpty()) {
             throw new IllegalArgumentException("Transaction description cannot be empty");
         }
@@ -58,13 +59,13 @@ public class TransactionValidations {
         }
     }
 
-    private void validateStatus(TransactionStatus status) {
+    private static void validateStatus(TransactionStatus status) {
         if (status == null) {
             throw new IllegalArgumentException("Transaction status must be specified");
         }
     }
 
-    private void validateCurrency(String currency) {
+    private static void validateCurrency(String currency) {
         if (currency == null || currency.trim().isEmpty()) {
             throw new IllegalArgumentException("Currency must be specified");
         }
@@ -73,7 +74,7 @@ public class TransactionValidations {
         }
     }
 
-    private boolean isValidCurrencyCode(String currency) { 
+    private static boolean isValidCurrencyCode(String currency) { 
         return currency.matches("^[A-Z]{3}$");   
     }
 }
