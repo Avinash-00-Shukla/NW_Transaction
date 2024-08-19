@@ -9,10 +9,8 @@ import com.nwb.cust.model.TransactionValidations;
 
 public class TransactionRepository {
 
-    public List<Transaction> transactions = new ArrayList<>();
-
-    public TransactionRepository() {  
-        
+    public List<Transaction> transactions = new ArrayList<>(); 
+    public TransactionRepository() {    
         // Fake transactions for testing
         Random random = new Random();  
         for (int i = 0; i < 20; i++) { 
@@ -28,7 +26,7 @@ public class TransactionRepository {
                 "USER" + ((i + 1) % 5)
             );
             transactions.add(transaction); 
-        }
+        } 
         transactions.add(new Transaction(44L, "NEFT", "CREDIT", 5000.00, LocalDateTime.now(), "Test Transaction", "SUCCESS", "INR", "USER1"));
     }
 
