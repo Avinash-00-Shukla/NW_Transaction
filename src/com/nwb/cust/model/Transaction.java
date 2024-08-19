@@ -20,28 +20,15 @@ public class Transaction {
     
 
     public Transaction(Long id, String mode, String type, Double amount, LocalDateTime date,
-                       String description, String status, String currency, String otherParty) { 
+                       String description, String status, String currency, String otherParty) throws IllegalArgumentException{ 
         this.id = id;
-        try {
-            this.mode =  TransactionMode.valueOf(mode.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid TransactionMode: " + mode);
-        } 
-        try {
-            this.type = TransactionType.valueOf(type.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid TransactionType: " + type);
-        }
+        this.setMode(mode); 
+        this.setType(type);
+        this.setStatus(status);
         this.amount = amount;
         this.date = date != null ? date : LocalDateTime.now();  
-        this.description = description;
-        try {
-            this.status = TransactionStatus.valueOf(status.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid TransactionStatus: " + status);
-        }
-        this.currency = currency; 
-        
+        this.description = description; 
+        this.currency = currency;  
         if(this.type == TransactionType.CREDIT){
             this.sender = otherParty; 
             this.reciever = "USER"; // database se aayega
@@ -66,69 +53,69 @@ public class Transaction {
     public Long getId() {
         return id;
     }
-
-
+ 
     public void setId(Long id) {
         this.id = id;
-    }
-
+    } 
 
     public TransactionMode getMode() {
         return mode;
+    } 
+
+    public void setMode (String mode) throws IllegalArgumentException{
+        try {
+            this.mode =  TransactionMode.valueOf(mode.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid TransactionMode: " + mode);
+        }  
     }
-
-
-    public void setMode(TransactionMode mode) {
-        this.mode = mode;
-    }
-
-
+ 
     public TransactionType getType() {
         return type;
     }
 
-
-    public void setType(TransactionType type) {
-        this.type = type;
+    public void setType(String type) {
+        try {
+            this.type = TransactionType.valueOf(type.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid TransactionType: " + type);
+        }
     }
-
 
     public Double getAmount() {
         return amount;
     }
 
-
     public void setAmount(Double amount) {
         this.amount = amount;
     }
-
 
     public LocalDateTime getDate() {
         return date;
     }
 
-
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
-
 
     public String getDescription() {
         return description;
     }
 
-
     public void setDescription(String description) {
         this.description = description;
     }
 
+    public TransactionStatus getStatus(){
+        return status; 
+    }
 
-    public TransactionStatus getStatus() {
-        return status;
-    } 
-
-    public void setStatus(TransactionStatus status) {
-        this.status = status;
+    public void setStatus(String status) throws IllegalArgumentException{
+        try {
+            this.status = TransactionStatus.valueOf(status.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid TransactionStatus: " + status);
+        }
     } 
 
     @Override
@@ -148,21 +135,17 @@ public class Transaction {
         return sender;
     }
 
-
     public void setSender(String sender) {
         this.sender = sender;
     }
-
 
     public String getReciever() {
         return reciever;
     }
 
-
     public void setReciever(String reciever) {
         this.reciever = reciever;
     }
-
 
     public void completeTransaction() {
         this.status = TransactionStatus.SUCCESS;
