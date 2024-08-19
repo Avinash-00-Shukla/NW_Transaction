@@ -14,7 +14,7 @@ public class TransactionValidations {
         validateType(transaction.getType());
         validateAmount(transaction.getAmount());
         validateDate(transaction.getDate());
-        validateDescription(transaction.getDescription());
+        // validateDescription(transaction.getDescription());
         validateStatus(transaction.getStatus());
         validateCurrency(transaction.getCurrency());
         return true;
@@ -50,14 +50,14 @@ public class TransactionValidations {
         }
     }
 
-    private static void validateDescription(String description) {
-        if (description == null || description.trim().isEmpty()) {
-            throw new IllegalArgumentException("Transaction description cannot be empty");
-        }
-        if (description.length() > 255) {
-            throw new IllegalArgumentException("Transaction description cannot exceed 255 characters");
-        }
-    }
+    // private static void validateDescription(String description) {
+    //     if (description == null || description.trim().isEmpty()) {
+    //         throw new IllegalArgumentException("Transaction description cannot be empty");
+    //     }
+    //     if (description.length() > 255) {
+    //         throw new IllegalArgumentException("Transaction description cannot exceed 255 characters");
+    //     }
+    // }
 
     private static void validateStatus(TransactionStatus status) {
         if (status == null) {

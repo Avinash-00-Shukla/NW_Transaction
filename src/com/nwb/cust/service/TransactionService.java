@@ -17,9 +17,9 @@ public class TransactionService {
     public TransactionService() { 
         repository = new TransactionRepository();
     }
-
+    
     public boolean addTransaction(Transaction t) {
-        // Add transaction to the repository
+        // Add transaction to the repository 
         repository.transactions.add(t);
         return true;
     }

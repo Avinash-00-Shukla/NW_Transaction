@@ -9,7 +9,7 @@ import com.nwb.cust.model.TransactionValidations;
 
 public class TransactionRepository {
 
-    public List<Transaction> transactions = new ArrayList<>();;
+    public List<Transaction> transactions = new ArrayList<>();
 
     public TransactionRepository() { 
 
@@ -24,7 +24,7 @@ public class TransactionRepository {
                 LocalDateTime.now().minusDays(random.nextInt(30)),  
                 "Demo Transaction " + (i + 1),  
                 getRandomTransactionStatusString(random),  
-                "USD",
+                "INR",
                 "USER" + ((i + 1) % 5)
             );
             transactions.add(transaction);
