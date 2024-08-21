@@ -68,9 +68,9 @@ public class TransactionFilters {
     }
 
     // Retrieve a specific transaction by ID
-    public static Transaction getTransactionById(List<Transaction> transactions, Long transactionId) {
+    public static Transaction getTransactionByTransactionId(List<Transaction> transactions, Long transactionId) {
         return transactions.stream()
-            .filter(t -> t.getId().equals(transactionId))
+            .filter(t -> t.getTransactionId().equals(transactionId))
             .findFirst()
             .orElse(null);
     }

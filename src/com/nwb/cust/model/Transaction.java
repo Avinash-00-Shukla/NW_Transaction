@@ -2,7 +2,7 @@ package com.nwb.cust.model;
 import java.time.LocalDateTime;
  
 public class Transaction {  
-    private Long id; 
+    private Long transactionId; 
     private TransactionMode mode;
     private TransactionType type;
     private Double amount;
@@ -18,10 +18,9 @@ public class Transaction {
         // Default constructor
     }
     
-
-    public Transaction(Long id, String mode, String type, Double amount, LocalDateTime date,
+    public Transaction(Long transactionId, String mode, String type, Double amount, LocalDateTime date,
                        String description, String status, String currency, String currentUser, String otherParty) throws IllegalArgumentException{ 
-        this.id = id;
+        this.transactionId = transactionId;
         this.setMode(mode); 
         this.setType(type);
         this.setStatus(status);
@@ -50,12 +49,12 @@ public class Transaction {
         this.currency = currency;
     }
 
-    public Long getId() {
-        return id;
+    public Long getTransactionId() {
+        return transactionId;
     }
  
-    public void setId(Long id) {
-        this.id = id;
+    public void setTransactionId(Long transactionId) {
+        this.transactionId = transactionId;
     } 
 
     public TransactionMode getMode() {
@@ -121,7 +120,7 @@ public class Transaction {
     @Override
     public String toString() {
         return "Transaction{" +
-                "id=" + id +
+                "transactionId=" + transactionId +
                 ", mode='" + mode + '\'' +
                 ", type='" + type + '\'' +
                 ", amount=" + amount +

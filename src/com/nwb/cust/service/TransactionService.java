@@ -18,11 +18,11 @@ public class TransactionService {
         repository = new TransactionRepository();
     }
     
-    public boolean addTransaction (Long id, String mode, String type, Double amount, LocalDateTime date,
+    public boolean addTransaction (Long transactionId, String mode, String type, Double amount, LocalDateTime date,
     String description, String status, String currency, String currentUser, String otherParty) {
         // Add transaction to the repository 
         try{
-            Transaction t = new Transaction(id, mode, type, amount, date, description, status, currency, currentUser, otherParty);
+            Transaction t = new Transaction(transactionId, mode, type, amount, date, description, status, currency, currentUser, otherParty);
             repository.transactions.add(t);
         }
         catch(IllegalArgumentException e){  
@@ -72,8 +72,8 @@ public class TransactionService {
     }
 
     // Retrieve a specific transaction by its ID
-    public Transaction getTransactionById(Long transactionId) {
-        return TransactionFilters.getTransactionById(repository.transactions, transactionId);
+    public Transaction getTransactionByTransactionId(Long transactionId) {
+        return TransactionFilters.getTransactionByTransactionId(repository.transactions, transactionId);
     }
 
     // Filter transactions by sender account number
