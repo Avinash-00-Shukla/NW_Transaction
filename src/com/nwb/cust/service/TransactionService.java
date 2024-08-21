@@ -19,10 +19,10 @@ public class TransactionService {
     }
     
     public boolean addTransaction (Long id, String mode, String type, Double amount, LocalDateTime date,
-    String description, String status, String currency, String otherParty) {
+    String description, String status, String currency, String currentUser, String otherParty) {
         // Add transaction to the repository 
         try{
-            Transaction t = new Transaction(id, mode, type, amount, date, description, status, currency, otherParty);
+            Transaction t = new Transaction(id, mode, type, amount, date, description, status, currency, currentUser, otherParty);
             repository.transactions.add(t);
         }
         catch(IllegalArgumentException e){  
@@ -38,7 +38,7 @@ public class TransactionService {
 
     // Filter transactions by exact amount
     public List<Transaction> getTransactionsByExactAmount(double amount) {
-        return TransactionFilters.searchTransactionsByAmount(repository.transactions, amount);
+        return TransactionFilters.getTransactionsByAmount(repository.transactions, amount);
     }
 
     // Filter transactions by minimum amount
@@ -68,7 +68,7 @@ public class TransactionService {
 
     // Filter transactions by description (contains keywords)
     public List<Transaction> getTransactionsByDescription(String descriptionKeyword) {
-        return TransactionFilters.searchTransactionsByDescription(repository.transactions, descriptionKeyword);
+        return TransactionFilters.getTransactionsByDescription(repository.transactions, descriptionKeyword);
     }
 
     // Retrieve a specific transaction by its ID

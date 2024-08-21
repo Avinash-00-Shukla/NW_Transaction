@@ -10,8 +10,8 @@ public class Transaction {
     private String description; 
     private TransactionStatus status;
     private String currency;
-    private String sender;
-    private String reciever;
+    private String senderAccount;
+    private String recieverAccount;
 
 
     public Transaction() {
@@ -20,7 +20,7 @@ public class Transaction {
     
 
     public Transaction(Long id, String mode, String type, Double amount, LocalDateTime date,
-                       String description, String status, String currency, String otherParty) throws IllegalArgumentException{ 
+                       String description, String status, String currency, String currentUser, String otherParty) throws IllegalArgumentException{ 
         this.id = id;
         this.setMode(mode); 
         this.setType(type);
@@ -30,12 +30,12 @@ public class Transaction {
         this.description = description; 
         this.currency = currency;  
         if(this.type == TransactionType.CREDIT){
-            this.sender = otherParty; 
-            this.reciever = "USER"; // database se aayega
+            this.senderAccount = otherParty; 
+            this.recieverAccount = currentUser;  
         }
         if(this.type == TransactionType.DEBIT){
-            this.reciever = otherParty; 
-            this.sender = "USER"; // database se aayega
+            this.senderAccount = otherParty; 
+            this.recieverAccount = currentUser;  
         }
 
         // Validation for transaction 
@@ -131,20 +131,20 @@ public class Transaction {
                 '}';
     }
 
-	public String getSender() {
-        return sender;
+	public String getSenderAccount() {
+        return senderAccount;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setSenderAccount(String sender) {
+        this.senderAccount = sender;
     }
 
-    public String getReciever() {
-        return reciever;
+    public String getRecieverAccount() {
+        return recieverAccount;
     }
 
-    public void setReciever(String reciever) {
-        this.reciever = reciever;
+    public void setRecieverAccount(String reciever) {
+        this.recieverAccount = reciever;
     }
 
     public void completeTransaction() {

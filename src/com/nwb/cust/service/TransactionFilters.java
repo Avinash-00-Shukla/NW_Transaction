@@ -19,7 +19,7 @@ public class TransactionFilters {
     }
 
     // Retrieve transactions by exact amount
-    public static List<Transaction> searchTransactionsByAmount(List<Transaction> transactions, double amount) {
+    public static List<Transaction> getTransactionsByAmount(List<Transaction> transactions, double amount) {
         return transactions.stream()
             .filter(t -> t.getAmount() == amount)
             .collect(Collectors.toList());
@@ -60,8 +60,8 @@ public class TransactionFilters {
             .collect(Collectors.toList());
     }
 
-    // Search transactions by description containing keywords
-    public static List<Transaction> searchTransactionsByDescription(List<Transaction> transactions, String descriptionKeyword) {
+    // Retrieve transactions by description containing keywords
+    public static List<Transaction> getTransactionsByDescription(List<Transaction> transactions, String descriptionKeyword) {
         return transactions.stream()
             .filter(t -> t.getDescription().contains(descriptionKeyword))
             .collect(Collectors.toList());
@@ -78,14 +78,14 @@ public class TransactionFilters {
     // Retrieve transactions by sender account number
     public static List<Transaction> getTransactionsBySenderAccount(List<Transaction> transactions, String senderAccount) {
         return transactions.stream()
-            .filter(t -> t.getSender().equals(senderAccount)) 
+            .filter(t -> t.getSenderAccount().equals(senderAccount)) 
             .collect(Collectors.toList());
     }
 
     // Retrieve transactions by receiver account number
     public static List<Transaction> getTransactionsByReceiverAccount(List<Transaction> transactions, String receiverAccount) {
         return transactions.stream()
-            .filter(t -> t.getReciever().equals(receiverAccount))
+            .filter(t -> t.getRecieverAccount().equals(receiverAccount))
             .collect(Collectors.toList());
     }  
 
