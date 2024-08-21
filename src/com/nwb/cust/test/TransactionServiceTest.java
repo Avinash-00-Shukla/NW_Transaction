@@ -21,12 +21,12 @@ public class TransactionServiceTest {
 
     @Test
     public void testAddTransaction() {                 
-        boolean result = service.addTransaction(21L, "NEFT", "CREDIT", 5000.00, LocalDateTime.now(), "Test Transaction", "SUCCESS", "INR", "USER1"); 
+        boolean result = service.addTransaction(21L, "NEFT", "CREDIT", 5000.00, LocalDateTime.now(), "Test Transaction", "SUCCESS", "INR", "USER2", "USER1"); 
         assertTrue(result);  
-        boolean result2 = service.addTransaction(21L, "UPI", "CREDIT", 5000.00, LocalDateTime.now(), "Test Transaction", "SUCCESS", "INR", "USER1"); 
+        boolean result2 = service.addTransaction(21L, "UPI", "DEBIT", 5000.00, LocalDateTime.now(), "Test Transaction", "SUCCESS", "INR", "USER3", "USER1"); 
         assertTrue(result2);  
-        boolean result3 = service.addTransaction(21L, "DUMMY", "CREDIT", 5000.00, LocalDateTime.now(), "Test Transaction", "SUCCESS", "INR", "USER1"); 
-        assertFalse(result3);  
+        boolean result3 = service.addTransaction(21L, "DUMMY", "CREDIT", 5000.00, LocalDateTime.now(), "Test Transaction", "SUCCESS", "INR", "USER3", "USER1"); 
+        assertFalse(result3);   
     }
 
     @Test
@@ -46,7 +46,7 @@ public class TransactionServiceTest {
     public void testGetTransactionsByExactAmount() {
         double amount = 5000.00; 
         service.addTransaction(22L, "CASH", "DEBIT", amount, LocalDateTime.now(),
-        "Test Transaction Exact Amount", "PENDING", "INR", "USER2");
+        "Test Transaction Exact Amount", "PENDING", "INR", "USER1", "USER2");
 
         List<Transaction> transactions = service.getTransactionsByExactAmount(amount);
         assertNotNull(transactions);
@@ -83,7 +83,7 @@ public class TransactionServiceTest {
     public void testGetTransactionsByType() {
         TransactionType type = TransactionType.CREDIT; 
         service.addTransaction(23L, "UPI", "CREDIT", 7500.00, LocalDateTime.now(),
-        "Test Transaction Type", "SUCCESS", "INR", "USER3");
+        "Test Transaction Type", "SUCCESS", "INR", "USER2", "USER3");
 
         List<Transaction> transactions = service.getTransactionsByType(type);
         assertNotNull(transactions);
@@ -109,7 +109,7 @@ public class TransactionServiceTest {
     public void testGetTransactionsByMode() {
         TransactionMode mode = TransactionMode.CASH; 
         service.addTransaction(24L, "CASH", "DEBIT", 3000.00, LocalDateTime.now(),
-        "Test Transaction Mode", "FAILED", "INR", "USER4");
+        "Test Transaction Mode", "FAILED", "INR", "USER3", "USER4");
 
         List<Transaction> transactions = service.getTransactionsByMode(mode);
         assertNotNull(transactions);
@@ -146,7 +146,7 @@ public class TransactionServiceTest {
         assertNotNull(transactions);
 
         for (Transaction t : transactions) {
-            assertEquals(senderAccount, t.getSender());
+            assertEquals(senderAccount, t.getSenderAccount());
         }
     }
 
@@ -157,7 +157,7 @@ public class TransactionServiceTest {
         assertNotNull(transactions);
 
         for (Transaction t : transactions) {
-            assertEquals(receiverAccount, t.getReciever());
+            assertEquals(receiverAccount, t.getRecieverAccount());
         }
     }
 

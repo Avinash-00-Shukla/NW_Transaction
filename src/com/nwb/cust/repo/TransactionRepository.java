@@ -23,11 +23,12 @@ public class TransactionRepository {
                 "Demo Transaction " + (i + 1),  
                 getRandomTransactionStatusString(random),  
                 "INR",
+                "USER" + ((i + 3) % 5),
                 "USER" + ((i + 1) % 5)
             );
             transactions.add(transaction); 
         } 
-        transactions.add(new Transaction(44L, "NEFT", "CREDIT", 5000.00, LocalDateTime.now(), "Test Transaction", "SUCCESS", "INR", "USER1"));
+        transactions.add(new Transaction(44L, "NEFT", "CREDIT", 5000.00, LocalDateTime.now(), "Test Transaction", "SUCCESS", "INR", "USER3", "USER1"));
     }
 
     // Helper methods to generate random enum values as strings
