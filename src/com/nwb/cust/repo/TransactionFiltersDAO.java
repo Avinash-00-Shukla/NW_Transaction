@@ -20,4 +20,5 @@ public interface TransactionFiltersDAO {
     public List<Transaction> getTransactionsBySenderAccount(String senderAccount) throws SQLException, ClassNotFoundException;
     public List<Transaction> getTransactionsByReceiverAccount(String receiverAccount) throws SQLException, ClassNotFoundException;
     public List<Transaction> getTransactionsByCurrency(String currency) throws SQLException, ClassNotFoundException;
+    public List<Transaction> getAllTransactions() throws SQLException, ClassNotFoundException;
 }

@@ -138,6 +138,15 @@ public class TransactionFiltersImpl implements TransactionFiltersDAO{
         return resultSetToTransactionList(resultSet);
     }
 
+    @Override
+    public List<Transaction> getAllTransactions() throws SQLException, ClassNotFoundException{
+        String query = "SELECT * FROM Transactions";
+		Connection con = DBConnection.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(query);
+		ResultSet resultSet = pstmt.executeQuery();
+        return resultSetToTransactionList(resultSet);
+    }
+
     // Converts ResultSet to Transaction Objects and adds them to a list
     public static List<Transaction> resultSetToTransactionList(ResultSet resultSet) throws SQLException, ClassNotFoundException{
         List<Transaction> filteredList = new ArrayList<Transaction>();
