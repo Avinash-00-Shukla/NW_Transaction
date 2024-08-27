@@ -2,7 +2,7 @@ package com.nwb.cust.model;
 import java.time.LocalDateTime;
  
 public class Transaction {  
-    private Long transactionId; 
+    private String transactionId; 
     private TransactionMode mode;
     private TransactionType type;
     private Double amount;
@@ -18,8 +18,8 @@ public class Transaction {
         // Default constructor
     }
     
-    public Transaction(Long transactionId, String mode, String type, Double amount, LocalDateTime date,
-                       String description, String status, String currency, String currentUser, String otherParty) throws IllegalArgumentException{ 
+    public Transaction(String transactionId, String mode, String type, Double amount, LocalDateTime date,
+                       String description, String status, String currency, String senderAccount, String recieverAccount) throws IllegalArgumentException{ 
         this.transactionId = transactionId;
         this.setMode(mode); 
         this.setType(type);
@@ -28,14 +28,16 @@ public class Transaction {
         this.date = date != null ? date : LocalDateTime.now();  
         this.description = description; 
         this.currency = currency;  
-        if(this.type == TransactionType.CREDIT){
-            this.senderAccount = otherParty; 
-            this.recieverAccount = currentUser;  
-        }
-        if(this.type == TransactionType.DEBIT){
-            this.senderAccount = otherParty; 
-            this.recieverAccount = currentUser;  
-        }
+        this.senderAccount = senderAccount;
+        this.recieverAccount = recieverAccount;
+        // if(this.type == TransactionType.CREDIT){
+        //     this.senderAccount = otherParty; 
+        //     this.recieverAccount = currentUser;  
+        // }
+        // if(this.type == TransactionType.DEBIT){
+        //     this.senderAccount = otherParty; 
+        //     this.recieverAccount = currentUser;  
+        // }
 
         // Validation for transaction 
         TransactionValidations.validateTransaction(this);
@@ -49,11 +51,11 @@ public class Transaction {
         this.currency = currency;
     }
 
-    public Long getTransactionId() {
+    public String getTransactionId() {
         return transactionId;
     }
  
-    public void setTransactionId(Long transactionId) {
+    public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
     } 
 
