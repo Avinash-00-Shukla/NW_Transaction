@@ -95,7 +95,8 @@ public class TransactionService {
         return transactionFilters.getTransactionsByCurrency(currency);
     }
 
-    // public List<Transaction> getAllTransactions() {
-    //     return repository.transactions;
-    // }
+    // To get all transactions
+    public List<Transaction> getAllTransactions() throws SQLException, ClassNotFoundException{
+        return transactionFilters.getAllTransactions();
+    }
 }
