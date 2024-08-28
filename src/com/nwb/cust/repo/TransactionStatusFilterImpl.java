@@ -31,12 +31,12 @@ public class TransactionStatusFilterImpl  implements TransactionStatusFilterDAO 
             String mode = resultSet.getString("transactionMode");
             String type = resultSet.getString("transactionType");
             Double amount = resultSet.getDouble("amount");
-            Timestamp transactionTime = resultSet.getTimestamp("timestamp");
+            Timestamp transactionTime = resultSet.getTimestamp("transactionTime");
             String description = resultSet.getString("description"); 
             String status = resultSet.getString("transactionStatus");
             String currency = resultSet.getString("currency");
             String senderAccount = resultSet.getString("senderAccountId");
-            String recieverAccount = resultSet.getString("recieverAccountId");
+            String recieverAccount = resultSet.getString("receiverAccountId");
             LocalDateTime date = null;
             if (transactionTime != null){
                 date = transactionTime.toLocalDateTime();
