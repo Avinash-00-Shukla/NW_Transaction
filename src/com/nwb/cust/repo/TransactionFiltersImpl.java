@@ -19,7 +19,7 @@ public class TransactionFiltersImpl implements TransactionFiltersDAO{
     // Retrieve transactions by date range
     @Override
     public List<Transaction> getTransactionsByDateRange(LocalDateTime startDate, LocalDateTime endDate) throws SQLException, ClassNotFoundException{
-		String query = "SELECT * FROM Transactions WHERE timestamp BETWEEN ? and ?";
+		String query = "SELECT * FROM Transactions WHERE transactionTime BETWEEN ? and ?";
 		Connection con = DBConnection.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(query);
         pstmt.setTimestamp(1, Timestamp.valueOf(startDate));
@@ -108,7 +108,7 @@ public class TransactionFiltersImpl implements TransactionFiltersDAO{
     // Retrieve transactions by sender account number
     @Override
     public List<Transaction> getTransactionsBySenderAccount(String senderAccount) throws SQLException, ClassNotFoundException{
-        String query = "SELECT * FROM Transactions WHERE senderAccount = ?";
+        String query = "SELECT * FROM Transactions WHERE senderAccountId = ?";
 		Connection con = DBConnection.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(query);
         pstmt.setString(1, senderAccount);
@@ -155,12 +155,12 @@ public class TransactionFiltersImpl implements TransactionFiltersDAO{
             String mode = resultSet.getString("transactionMode");
             String type = resultSet.getString("transactionType");
             Double amount = resultSet.getDouble("amount");
-            Timestamp transactionTime = resultSet.getTimestamp("timestamp");
+            Timestamp transactionTime = resultSet.getTimestamp("transactionTime");
             String description = resultSet.getString("description"); 
             String status = resultSet.getString("transactionStatus");
             String currency = resultSet.getString("currency");
             String senderAccount = resultSet.getString("senderAccountId");
-            String recieverAccount = resultSet.getString("recieverAccountId");
+            String recieverAccount = resultSet.getString("receiverAccountId");
             LocalDateTime date = null;
             if (transactionTime != null){
                 date = transactionTime.toLocalDateTime();
