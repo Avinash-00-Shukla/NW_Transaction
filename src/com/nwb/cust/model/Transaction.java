@@ -30,16 +30,6 @@ public class Transaction {
         this.currency = currency;  
         this.senderAccount = senderAccount;
         this.recieverAccount = recieverAccount;
-        // if(this.type == TransactionType.CREDIT){
-        //     this.senderAccount = otherParty; 
-        //     this.recieverAccount = currentUser;  
-        // }
-        // if(this.type == TransactionType.DEBIT){
-        //     this.senderAccount = otherParty; 
-        //     this.recieverAccount = currentUser;  
-        // }
-
-        // Validation for transaction 
         TransactionValidations.validateTransaction(this);
     } 
 
