@@ -86,7 +86,7 @@ public class TransactionFiltersImpl implements TransactionFiltersDAO{
     // Retrieve transactions by description containing keywords
     @Override
     public List<Transaction> getTransactionsByDescription(String descriptionKeyword) throws SQLException, ClassNotFoundException{
-        String query = "SELECT * FROM Transactions WHERE description LIKE ?";
+        String query = "SELECT * FROM Transactions WHERE UPPER(description) LIKE UPPER(?)";
 		Connection con = DBConnection.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(query);
         pstmt.setString(1, "%"+descriptionKeyword+"%");
